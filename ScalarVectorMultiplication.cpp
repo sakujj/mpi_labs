@@ -70,7 +70,6 @@ int main(int argc, char** argv) {
 
     recvCount = sendCount;
     recvBuf_1 = new int[recvCount];
-    recvBuf_2 = new int[recvCount];
 
     if (rank == root) {
         vector_1 = new int[len];
@@ -90,7 +89,6 @@ int main(int argc, char** argv) {
             for (int i = 0; i < prcsCount; ++i) {
                 sendCounts[i] = sendCount;
                 displs[i] = sendCounts[i] * i;
-                displs[i] = sendCounts[i] * i;
             }
         } else {
             int minCount = len % prcsCount;
@@ -98,10 +96,8 @@ int main(int argc, char** argv) {
                 if (i < minCount) {
                     sendCounts[i] = sendCount;
                     displs[i] = sendCounts[i] * i;
-                    displs[i] = sendCounts[i] * i;
                 } else {
                     sendCounts[i] = sendCount - 1;
-                    displs[i] = sendCounts[i] * i + minCount;
                     displs[i] = sendCounts[i] * i + minCount;
                 }
             }
