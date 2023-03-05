@@ -70,17 +70,18 @@ int main(int argc, char** argv) {
 
     recvCount = sendCount;
     recvBuf_1 = new int[recvCount];
+    recvBuf_2 = new int[recvCount];
 
     if (rank == root) {
         vector_1 = new int[len];
         vector_2 = new int[len];
         fillInWithRandomInts(vector_1, len, 2, true);
-        cout << "\n";
-        coutIntVector(vector_1, len);
-        cout << "\n";
+       // cout << "\n";
+      //  coutIntVector(vector_1, len);
+       // cout << "\n";
         fillInWithRandomInts(vector_2, len, 2, true);
-        coutIntVector(vector_2, len);
-        cout << endl;
+      //  coutIntVector(vector_2, len);
+      //  cout << endl;
 
         sendCounts = new int[prcsCount];
         displs = new int[prcsCount];
@@ -119,10 +120,10 @@ int main(int argc, char** argv) {
         result += recvBuf_1[i] * recvBuf_2[i];
     }
 
-    cout << "    " << rank << "     process got    " << recvCount << "    coordinates to mulptiply. Result is    " << result << endl;
-    MPI_Barrier(comm);
+    //cout << "    " << rank << "     process got    " << recvCount << "    coordinates to mulptiply. Result is    " << result << endl;
+    //MPI_Barrier(comm);
 
-
+    double time = MPI_Wtime();
     if (rank == root) {
         rootRecvBuf = new int[prcsCount];
         rootRecvCounts = new int[prcsCount];
@@ -141,6 +142,8 @@ int main(int argc, char** argv) {
         for (int i = 0; i < prcsCount; ++i) {
             product += rootRecvBuf[i];
         }
+    time = MPI_Wtime() - time;
+        cout << rank << "  "<< time << "!\n";
         cout << "\n-----------------------------------------------\n";
         cout << "-----------------------------------------------\n\n";
 
